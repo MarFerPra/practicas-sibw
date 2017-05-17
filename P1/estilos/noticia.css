@@ -1,0 +1,13 @@
+#cuerpo {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+    -webkit-column-rule: 1px solid rgba(76, 175, 80, .5); /* Chrome, Safari, Opera */
+    -moz-column-rule: 1px solid rgba(76, 175, 80, .5); /* Firefox */
+    column-rule: 1px solid rgba(76, 175, 80, .5);
+    padding: 40px;
+    line-height: 25px;
+}
