@@ -60,7 +60,9 @@ function getComentarioHtml(autor, fecha, texto) {
 
 function formatearFecha(f) {
   const fecha = new Date(f);
-  return fecha.getDate() + "-" + fecha.getMonth() + "-" + fecha.getFullYear();
+  const diaMesAnyo = fecha.getDate() + "-" + fecha.getMonth() + "-" + fecha.getFullYear();
+  const horaMinSeg = fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
+  return diaMesAnyo + " " + horaMinSeg;
 }
 
 
