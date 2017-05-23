@@ -74,6 +74,11 @@
 
 /* Comentarios */
 
+#wrapper-comentarios {
+  width: 50%;
+  margin: 10px 330px;
+}
+
 #btn-dropdown-comentarios {
     background-color: #eee;
     color: #444;
@@ -84,6 +89,9 @@
     border: none;
     outline: none;
     transition: 0.4s;
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 1  0px;
 }
 
 #btn-dropdown-comentarios.active, #btn-dropdown-comentarios:hover {
@@ -108,4 +116,41 @@
 
 #btn-dropdown-comentarios.active:after {
   content: "\2796";
+}
+
+.comentario-autor-fecha {
+  padding: 5px;
+}
+
+.comentario-autor {
+  font-weight: bold;
+}
+
+.comentario-fecha {
+  font-weight: lighter;
+  font-size: .7em;
+}
+
+.comentario-texto {
+  font-style: italic;
+  padding: 10px;
+}
+
+.comentario {
+  margin: 10px;
+}
+
+#comentario-form-texto {
+  width: 100%;
+}
+
+#comentario-form {
+  margin-top: 25px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#comentario-form .input {
+  margin: 5px;
+  padding: 5px;
 }

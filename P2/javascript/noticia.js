@@ -1,6 +1,6 @@
-let fechaHoy = new Date();
-const ayer = fechaHoy.setDate(fechaHoy.getDate() - 1);
-const semanaPasada = fechaHoy.setDate(fechaHoy.getDate() - 6);
+let fechaBase = new Date();
+const ayer = fechaBase.setDate(fechaBase.getDate() - 1);
+const semanaPasada = fechaBase.setDate(fechaBase.getDate() - 6);
 
 const comentariosPorDefecto = [
   {
@@ -15,19 +15,32 @@ const comentariosPorDefecto = [
   }
 ];
 
+const palabrasProhibidas = [
+  'fullstack',
+  'devops',
+  'agile',
+  'php',
+  'jquery',
+  'koala'
+];
 
-function mostrarComentarios() {
-  const botton = document.getElementById('btn-dropdown-comentarios');
-  const comentarios = document.getElementById('comentarios');
+function addComentariosPorDefecto() {
+    const comentarios = document.getElementById('comentarios');
 
-  if (!comentarios.children.length) {
+    if (!comentarios.children.length) {
     comentariosPorDefecto.forEach((comentario) => {
       const { autor, fecha, texto } = comentario;
       comentarios.innerHTML += getComentarioHtml(autor, fecha, texto);
     });
   }
+}
 
+
+function toggleComentarios() {
+  const botton = document.getElementById('btn-dropdown-comentarios');
   botton.classList.toggle('active');
+
+  const comentarios = document.getElementById('comentarios');
   comentarios.style.maxHeight = comentarios.style.maxHeight ? null : comentarios.scrollHeight + 'px';
 }
 
@@ -35,8 +48,10 @@ function mostrarComentarios() {
 function getComentarioHtml(autor, fecha, texto) {
   return (
     `<div class="comentario">
-        <span class="comentario-autor">${autor}</span>
-        <span class="comentario-fecha">${fecha}</span>
+        <div class="comentario-autor-fecha">
+          <span class="comentario-autor">${autor}</span>
+          <span class="comentario-fecha">${fecha}</span>
+        </div>
         <span class="comentario-texto">${texto}</span>
       </div>`
   );
@@ -49,6 +64,45 @@ function formatearFecha(f) {
 }
 
 
-function addComentario() {
-  console.log("Add comentario!");
+function addComentario(ev) {
+  ev.preventDefault();
+  const comentarios = document.getElementById('comentarios');
+  const autor = document.getElementById('comentario-form-autor');
+  const texto = document.getElementById('comentario-form-texto');
+  const fechaAhora = formatearFecha(new Date());
+
+  comentarios.innerHTML += getComentarioHtml(autor.value, fechaAhora, texto.value);
+
+  mostrarComentarios();
+  limpiarFormularioComentario();
+}
+
+function mostrarComentarios() {
+  const comentarios = document.getElementById('comentarios');
+  comentarios.style.maxHeight = comentarios.scrollHeight + 'px';
+
+  const botton = document.getElementById('btn-dropdown-comentarios');
+  botton.classList.add('active');
+}
+
+function limpiarFormularioComentario() {
+  const autor = document.getElementById('comentario-form-autor');
+  const email = document.getElementById('comentario-form-email');
+  const texto = document.getElementById('comentario-form-texto');
+
+  autor.value = "";
+  email.value = "";
+  texto.value = "";
+}
+
+function filtrarPalabras(ev) {
+  let texto = ev.target.value;
+
+  palabrasProhibidas.forEach((palabra) => {
+    if(texto.search(palabra) > -1) {
+      texto = texto.replace(palabra, '*'.repeat(palabra.length)); // En ES5 seria: Array(palabra.length + 1).join('*')
+    }
+  });
+
+  ev.target.value = texto;
 }

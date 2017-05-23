@@ -85,18 +85,51 @@
       </a>
     </div>
 
-    <button id="btn-dropdown-comentarios" onclick="mostrarComentarios()">COMENTARIOS</button>
-    <div id="comentarios">
+    <div id="wrapper-comentarios">
+      <button id="btn-dropdown-comentarios" onclick="toggleComentarios()">COMENTARIOS</button>
+      <div id="comentarios">
+      </div>
+
+      <form id="comentario-form">
+        <input
+          type="text"
+          name="autor"
+          class="input"
+          id="comentario-form-autor"
+          placeholder="Autor"
+        >
+        <input
+         type="email"
+         name="email"
+         class="input"
+         id="comentario-form-email"
+         placeholder="Email"
+        >
+        <textarea
+          rows="4"
+          cols="50"
+          name="texto"
+          class="input"
+          placeholder="Introduce tu comentario..."
+          id="comentario-form-texto"
+          onkeydown="(ev) => filtrarPalabras(ev)"
+        ></textarea>
+        <button id="btn-comentar">Comentar</button>
+      </form>
     </div>
 
-    <form id="comentario-form">
-      <input type="text" name="autor" id="comentario-form-autor">
-      <input type="email" name="email" id="comentario-form-email">
-      <textarea rows="4" cols="50" name="texto" id="comentario-form-text"></textarea>
-    </form>
+</div>
 
-    <button id="btn-comentar" onclick="addComentario()">Comentar</button>
 
-    </div>
+    <script>
+      /* Se ejecuta despues de cargar el HTML */
+      (function() {
+        const textareaComentario = document.getElementById('comentario-form-texto');
+        textareaComentario.onkeyup = filtrarPalabras;
+        const btnComentar = document.getElementById('btn-comentar');
+        btnComentar.onclick = addComentario;
+        addComentariosPorDefecto();
+      })();
+</script>
   </body>
 </html>
