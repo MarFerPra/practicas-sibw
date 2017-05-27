@@ -2,15 +2,9 @@
 <link rel = "stylesheet" type = "text/css" href = "./estilos/comun.css" />
 
 <?php
-
-  $conexion = mysql_connect ("localhost", "marcofp", "marcofp");
-  $abreBD = mysql_select_db ("geekleaks_db", $conexion);
-
-  $noticiaID = $_GET["noticia"];
-
-  $noticia_query = mysql_query('SELECT * FROM Noticias WHERE ID='.$noticiaID, $conexion);
-  $noticia = mysql_fetch_array($noticia_query);
-
+  include './helpers/db_handler.php';
+  $conexion = db_conectar();
+  $noticia = db_get_noticia($conexion, $_GET["noticia"]);
 ?>
 
 <div class="contenedor-general">
@@ -36,4 +30,4 @@
 </div>
 
 
-<?php mysql_close($conexion); ?>
+<?php db_desconectar($conexion); ?>

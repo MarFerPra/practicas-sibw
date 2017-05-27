@@ -1,34 +1,18 @@
 <link rel = "stylesheet" type = "text/css" href = "./estilos/noticia.css" />
 
 <?php
+  include './helpers/db_handler.php';
+  $conexion = db_conectar();
+  $noticiaID = $_GET["noticia"];
+  $noticia = db_get_noticia($conexion, $noticiaID);
 
-$conexion = mysql_connect ("localhost", "marcofp", "marcofp");
-$abreBD = mysql_select_db ("geekleaks_db", $conexion);
+  $comentarios = db_get_comentarios($conexion, $noticiaID);
 
-$noticiaID = $_GET["noticia"];
+  $count_comentarios = sizeof($comentarios);
 
-$noticia_query = mysql_query('SELECT * FROM Noticias WHERE ID='.$noticiaID, $conexion);
-$noticia = mysql_fetch_array($noticia_query);
+  $palabras_prohibidas = db_get_palabras_prohibidas($conexion);
 
-$comentarios_query = mysql_query('SELECT * FROM Comentarios WHERE NoticiaID='.$noticiaID, $conexion);
-
-$comentarios = array();
-
-while($comentario = mysql_fetch_array($comentarios_query)){
-  $comentarios[] = $comentario;
-}
-
-$count_comentarios = sizeof($comentarios);
-
-$palabras_prohibidas_query = mysql_query('SELECT Valor FROM PalabrasProhibidas', $conexion);
-
-$palabras_prohibidas = array();
-
-while($palabra = mysql_fetch_array($palabras_prohibidas_query)){
-  $palabras_prohibidas[] = $palabra;
-}
-
-$count_palabras_prohibidas = sizeof($palabras_prohibidas);
+  $count_palabras_prohibidas = sizeof($palabras_prohibidas);
 ?>
 
 
@@ -63,7 +47,7 @@ $count_palabras_prohibidas = sizeof($palabras_prohibidas);
         <img src="./imagenes/tw.png" height="24" width="24">
       </a>
 
-      <a href="noticia_imprimir.html">
+      <a href="<?php echo "?noticia=$noticiaID&imprimir=true" ?>">
         <img src="./imagenes/print.png" height="24" width="24">
       </a>
     </div>
@@ -136,5 +120,4 @@ $count_palabras_prohibidas = sizeof($palabras_prohibidas);
     })();
   </script>
 
-
-<?php mysql_close($conexion); ?>
+<?php db_desconectar($conexion); ?>

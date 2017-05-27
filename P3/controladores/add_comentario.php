@@ -1,6 +1,6 @@
 <?php
-  $conexion = mysql_connect ("localhost", "marcofp", "marcofp");
-  $abreBD = mysql_select_db ("geekleaks_db", $conexion);
+  include './helpers/db_handler.php';
+  $conexion = db_conectar();
 
   $email = htmlspecialchars($_POST['email']);
   $autor = htmlspecialchars($_POST['autor']);
@@ -21,6 +21,5 @@
   }
 
 
-  <?php mysql_close($conexion); ?>
-
+  db_desconectar($conexion);
 ?>

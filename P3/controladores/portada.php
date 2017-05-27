@@ -1,19 +1,10 @@
 <link rel = "stylesheet" type = "text/css" href = "./estilos/portada.css" />
 
 <?php
-$conexion = mysql_connect ("localhost", "marcofp", "marcofp");
-$abreBD = mysql_select_db ("geekleaks_db", $conexion);
-
-$noticia_principal_query = mysql_query('SELECT * FROM Noticias WHERE principal=true', $conexion);
-$ultimas_noticias_query = mysql_query('SELECT * FROM Noticias WHERE ultimas=true', $conexion);
-
-$noticia_principal = mysql_fetch_array($noticia_principal_query);
-$ultimas_noticias = array();
-
-while($noticia = mysql_fetch_array($ultimas_noticias_query)){
-  $ultimas_noticias[] = $noticia;
-}
-
+  include './helpers/db_handler.php';
+  $conexion = db_conectar();
+  $noticia_principal = db_get_noticia_principal($conexion);
+  $ultimas_noticias = db_get_ultimas_noticias($conexion);
 ?>
 
   <a href="?noticia=<?php echo $noticia_principal[0] ?>" class="link-noticia">
@@ -69,4 +60,4 @@ while($noticia = mysql_fetch_array($ultimas_noticias_query)){
 
   </div>
 
-  <?php mysql_close($conexion); ?>
+  <?php db_desconectar($conexion); ?>
