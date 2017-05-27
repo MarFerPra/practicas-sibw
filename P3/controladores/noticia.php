@@ -29,8 +29,6 @@ while($palabra = mysql_fetch_array($palabras_prohibidas_query)){
 }
 
 $count_palabras_prohibidas = sizeof($palabras_prohibidas);
-
-
 ?>
 
 

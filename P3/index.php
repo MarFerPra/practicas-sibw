@@ -13,8 +13,15 @@
   if(count($_GET) == 0) {
     include './controladores/portada.php';
   } else {
-    include './controladores/noticia.php';
-    include './layout/sidebar.php';
+    $noticiaID = $_GET["noticia"];
+    $imprimir = $_GET["imprimir"];
+
+    if($noticiaID and $imprimir == true) {
+      include './controladores/noticia_imprimir.php';
+    } elseif ($noticiaID) {
+      include './controladores/noticia.php';
+      include './layout/sidebar.php';
+    }
   }
   ;?>
 
