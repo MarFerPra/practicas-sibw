@@ -1,0 +1,67 @@
+/* Arreglo general */
+
+body {
+    margin: 0;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+/* Titulo del periodico */
+
+#titulo-periodico {
+    background-color: #4CAF50;
+    text-align: center;
+}
+
+#titulo-periodico h1 {
+    font-family: "Arial Black", Gadget, sans-serif;
+    margin: 0;
+    padding: 5px 0 5px 0;
+    text-shadow: 1px 1px 1px white;
+}
+
+
+/* Navbar */
+
+#navbar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+#navbar li {
+    float: left;
+}
+
+#navbar li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#navbar li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+#navbar li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+
+/* Noticias */
+
+.link-noticia {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* General */
+
+.contenedor-general {
+    padding: 20px;
+}

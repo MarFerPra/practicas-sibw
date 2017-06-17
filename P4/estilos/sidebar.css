@@ -1,0 +1,29 @@
+#sidebar {
+  float: right;
+  width: 15%;
+  margin: 150px 70px;
+}
+
+#sidebar img {
+  padding: 20px;
+  max-width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#sidebar .noticia {
+  background-color: rgba(210, 210, 210, 1);
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 45px;
+  padding: 15px;
+  border-radius: 5px;
+  min-height: 100px;
+  text-align: center;
+}
