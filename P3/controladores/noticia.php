@@ -2,15 +2,17 @@
 
 <?php
   include './helpers/db_handler.php';
-  $conexion = db_conectar();
-  $noticiaID = $_GET["noticia"];
-  $noticia = db_get_noticia($conexion, $noticiaID);
 
-  $comentarios = db_get_comentarios($conexion, $noticiaID);
+  $dbHandler = DatabaseHandler::getInstance();
+
+  $noticiaID = $_GET["noticia"];
+  $noticia = $dbHandler->getNoticia($noticiaID);
+
+  $comentarios = $dbHandler->getComentarios($noticiaID);
 
   $count_comentarios = sizeof($comentarios);
 
-  $palabras_prohibidas = db_get_palabras_prohibidas($conexion);
+  $palabras_prohibidas = $dbHandler->getPalabrasProhibidas();
 
   $count_palabras_prohibidas = sizeof($palabras_prohibidas);
 ?>
@@ -70,6 +72,7 @@
       </div>
 
       <form id="comentario-form" action="./controladores/add_comentario.php" method="POST">
+        <input type="hidden" name="add_comentario" value="true" />
         <input
           type="text"
           name="autor"
@@ -96,6 +99,7 @@
         <input type="hidden" name="noticia" value="<?php echo $noticiaID?>">
         <input type="submit" id="btn-comentar" value="Comentar">
       </form>
+
     </div>
 
 </div>
@@ -119,5 +123,3 @@
       btnComentar.onclick = addComentario;
     })();
   </script>
-
-<?php db_desconectar($conexion); ?>

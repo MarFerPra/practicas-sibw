@@ -2,9 +2,9 @@
 
 <?php
   include './helpers/db_handler.php';
-  $conexion = db_conectar();
-  $noticia_principal = db_get_noticia_principal($conexion);
-  $ultimas_noticias = db_get_ultimas_noticias($conexion);
+  $dbHandler = DatabaseHandler::getInstance();
+  $noticia_principal = $dbHandler->getNoticiaPrincipal();
+  $ultimas_noticias = $dbHandler->getUltimasNoticias();
 ?>
 
   <a href="?noticia=<?php echo $noticia_principal[0] ?>" class="link-noticia">
@@ -59,5 +59,3 @@
 
 
   </div>
-
-  <?php db_desconectar($conexion); ?>

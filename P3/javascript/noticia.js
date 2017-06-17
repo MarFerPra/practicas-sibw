@@ -30,14 +30,23 @@ function formatearFecha(f) {
 
 function addComentario(ev) {
   ev.preventDefault();
-  const comentarios = document.getElementById('comentarios');
-  const autor = document.getElementById('comentario-form-autor');
-  const texto = document.getElementById('comentario-form-texto');
-  const fechaAhora = formatearFecha(new Date());
 
-  comentarios.innerHTML += getComentarioHtml(autor.value, fechaAhora, texto.value);
-
-  mostrarComentarios();
+  var formComentario = new FormData(document.getElementById('comentario-form'));
+  fetch("./controladores/add_comentario.php", {
+    method: "POST",
+    body: formComentario
+  }).then((response) => {
+    if (response.status === 200) {
+      const comentarios = document.getElementById('comentarios');
+      const autor = document.getElementById('comentario-form-autor');
+      const texto = document.getElementById('comentario-form-texto');
+      const fechaAhora = formatearFecha(new Date());
+      comentarios.innerHTML += getComentarioHtml(autor.value, fechaAhora, texto.value);
+      mostrarComentarios();
+    } else {
+      alert('Error, no estas registrado en el sistema.');
+    }
+  });
   limpiarFormularioComentario();
 }
 

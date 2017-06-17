@@ -3,8 +3,8 @@
 
 <?php
   include './helpers/db_handler.php';
-  $conexion = db_conectar();
-  $noticia = db_get_noticia($conexion, $_GET["noticia"]);
+  $dbHandler = DatabaseHandler::getInstance();
+  $noticia = $dbHandler->getNoticia($_GET["noticia"]);
 ?>
 
 <div class="contenedor-general">
@@ -28,6 +28,3 @@
       <?php echo $noticia[5]; ?>
     </div>
 </div>
-
-
-<?php db_desconectar($conexion); ?>
