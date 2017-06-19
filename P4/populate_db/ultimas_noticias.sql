@@ -1,4 +1,4 @@
-INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, Principal, Ultimas) VALUES (
+INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, SeccionID, Publicada, Principal, Ultimas) VALUES (
 '¿La votación online ayudará a reconstruir la confianza en la política?',
 'Una compañía de tecnología española quiere arreglar nuestro "obsoleto sistema político" al mantener una línea abierta de comunicación con el electorado, fomentando el diálogo entre los ciclos de elección.',
 'El hecho que nuestro sistema político es defectuoso es una de las pocas cosas en que las personas del mundo occidental pueden estar de acuerdo y, más significativo aún, es que los mismos políticos también están de acuerdo. Sin embargo y comparado con otros problemas cuya \'solución\' se encontró gracias a la tecnología, mejorar el "obsoleto sistema político" es un gran reto.',
@@ -30,7 +30,7 @@ INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo,
   <p>
       El martes, la agencia puso los archivos en línea. Los archivos incluyen papeles de Henry Kissinger, documentos de desarrollo e investigación de la CIA, estudios científicos, reportes de inteligencia fotográfica, archivos de noticias e innumerables documentos. Todos pueden ser leídos aquí.
    </p>',
-'2017-01-20 19:23:00',
+'2017-01-20 19:23:00', 1, true,
 false,
 true
 );

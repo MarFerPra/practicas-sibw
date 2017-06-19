@@ -1,16 +1,16 @@
 <?php
   include '../../../helpers/db_handler.php';
-  $noticiaID = htmlspecialchars($_POST['$noticiaID']);
+
+  $usuarioID = htmlspecialchars($_POST['usuarioID']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
+  $usuario = $dbHandler->getUsuario($usuarioID);
 
-  $comentarios = $dbHandler->getComentarios($noticiaID);
-
-  if($comentarios) {
+  if($usuario) {
     http_response_code(200);
-    echo json_encode($comentarios);
+    echo json_encode($usuario);
   } else {
     http_response_code(500);
   }

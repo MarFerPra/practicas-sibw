@@ -4,6 +4,7 @@
     <title>GeekLeaks</title>
     <link rel = "stylesheet" type = "text/css" href = "./estilos/comun.css" />
     <script src="./javascript/noticia.js"></script>
+    <script src="./javascript/limpiarFormulario.js"></script>
   </head>
   <body>
 
@@ -21,6 +22,10 @@
     } elseif ($noticiaID) {
       include './controladores/noticia.php';
       include './layout/sidebar.php';
+    }
+
+    if($_GET["seccion"]) {
+      include './controladores/seccion.php';
     }
   }
   ;?>

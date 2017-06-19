@@ -3,9 +3,12 @@
 </div>
 
 <ul id="navbar">
-  <li><a href="portada.html">Portada</a></li>
-  <li><a href="#tecnologia">Tecnologia</a></li>
-  <li><a href="#ciencia">Ciencia</a></li>
-  <li><a href="#politica">Politica</a></li>
-  <li><a href="#economia">Economia</a></li>
+  <li><a href="./">Portada</a></li>
+  <li><a href="./?seccion=Tecnologia">Tecnologia</a></li>
+  <li><a href="./?seccion=Ciencia">Ciencia</a></li>
+  <li><a href="./?seccion=Politica">Politica</a></li>
+  <li><a href="./?seccion=Economia">Economia</a></li>
+  <li class="user-option"><a href="./registro">Registro</a></li>
+  <li class="user-option"><a href="./login">Login</a></li>
+  <li class="user-option"><a href="./logout">Logout</a></li>
 </ul>

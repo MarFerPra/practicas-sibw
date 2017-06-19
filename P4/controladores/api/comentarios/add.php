@@ -1,5 +1,5 @@
 <?php
-  include '../helpers/db_handler.php';
+  include '../../../helpers/db_handler.php';
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();

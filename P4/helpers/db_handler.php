@@ -1,4 +1,5 @@
 <?php
+  // error_log(print_r($variable, TRUE));
   class DatabaseHandler {
 
 	private $_connection;
@@ -31,28 +32,42 @@
 	}
 
   // TODO: Refactor long parameters in functions using hashes/objects.
+  // TODO: Cipher passwords with strong crypto and salt.
   // ---------------------------------------------------------------------------
   //                                USUARIOS
   // ---------------------------------------------------------------------------
 
-  public function addUsuario($nombre, $email, $roles) {
-    $add_usuario_query = sprintf(
-      "INSERT INTO Usuarios (Nombre, Email, Roles)
-      VALUES ('%s', '%s', '%s')",
-      $nombre, $email, $roles
-    );
-    $resultado_insertar = mysql_query($add_usuario_query, $this->_connection);
-    return $resultado_insertar;
+  public function getUsuario($usuarioID) {
+    $query = mysql_query('SELECT * FROM Usuarios WHERE ID='.$usuarioID, $this->_connection);
+    return mysql_fetch_array($query);
   }
 
-  public function editUsuario($usuarioID, $nombre, $email, $roles) {
+  public function addUsuario($nombre, $email, $password, $rol) {
+    $hashed_password = hash('sha256', $password);
+    $accessToken = $this->generateAccessToken($email, $hashed_password);
+    $add_usuario_query = sprintf(
+      "INSERT INTO Usuarios (Nombre, Password, Email, Rol, TokenAcceso)
+      VALUES ('%s', '%s', '%s', '%s', '%s')",
+      $nombre, $hashed_password, $email, $rol, $accessToken
+    );
+    $resultado_insertar = mysql_query($add_usuario_query, $this->_connection);
+    if($resultado_insertar) {
+      return $accessToken;
+    } else {
+      return false;
+    }
+  }
+
+  public function editUsuario($usuarioID, $nombre, $password, $email, $rol) {
+    $hashed_password = hash('sha256', $password);
     $edit_usuario_query = sprintf(
       "UPDATE Usuarios
        SET Nombre='%s',
+           Password='%s',
            Email='%s',
-           Roles='%s'
+           Rol='%s'
        WHERE ID='%s'",
-       $nombre, $email, $roles, $usuarioID
+       $nombre, $hashed_password, $email, $rol, $usuarioID
     );
     $resultado_editar = mysql_query($edit_usuario_query, $this->_connection);
     return $resultado_editar;
@@ -68,6 +83,50 @@
     $is_user_query = sprintf("SELECT * FROM Usuarios WHERE Email='%s'", $email);
     $usuario_query = mysql_query($is_user_query, $this->_connection);
     return (mysql_num_rows($usuario_query) != 0);
+  }
+
+  public function authenticateUser($email, $password) {
+    $user_query = sprintf("SELECT * FROM Usuarios WHERE Email='%s'", $email);
+    $usuario_query = mysql_query($user_query, $this->_connection);
+
+    $user = mysql_fetch_array($usuario_query);
+    $hashed_password = hash('sha256', $password);
+
+    if(mysql_num_rows($usuario_query) != 0 && $hashed_password == $user[2]) {
+      $accessToken = $this->generateAccessToken($email, $hashed_password);
+
+      $add_token_query = sprintf(
+        "UPDATE Usuarios
+         SET TokenAcceso='%s'
+         WHERE Email='%s'",
+         $accessToken, $email
+      );
+      $resultado_query = mysql_query($add_token_query, $this->_connection);
+
+      return $accessToken;
+    }
+
+    return false;
+  }
+
+  public function removeAccessToken($usuarioID) {
+    $token_query = sprintf(
+      "UPDATE Usuarios
+       SET TokenAcceso='%s'
+       WHERE ID='%s'",
+       '-', $usuarioID
+    );
+    $resultado_query = mysql_query($token_query, $this->_connection);
+    return $resultado_query;
+  }
+
+  public function checkAcessToken($usuarioID, $accessToken) {
+    $usuario = $this->getUsuario($usuarioID);
+    return ($usuario[5] == $accessToken);
+  }
+
+  public function generateAccessToken($email, $hashed_password) {
+    return hash('sha256', $email.$hashed_password.strval((rand(1, 1000000))));
   }
 
   // ---------------------------------------------------------------------------
@@ -105,7 +164,7 @@
            Principal='%s',
            Ultimas='%s',
        WHERE ID='%s'",
-       $noticiaID, $titular, $subtitulo, $entradilla,
+       $titular, $subtitulo, $entradilla,
        $autor, $cuerpo, $fecha, $seccion, $publicada,
        $principal, $ultimas, $noticiaID
     );
@@ -119,12 +178,15 @@
     return $resultado_delete;
   }
 
-  public function getNoticiasSeccion($seccionID) {
-    $noticias_seccion_query = mysql_query('SELECT * FROM Noticias WHERE SeccionID='.$seccionID, $this->_connection);
+  public function getNoticiasSeccion($nombreSeccion) {
+    $seccion = $this->getSeccion($nombreSeccion);
+    $noticias_seccion_query = mysql_query('SELECT * FROM Noticias WHERE SeccionID='.$seccion[0], $this->_connection);
     $noticias_seccion = array();
 
-    while($noticia = mysql_fetch_array($noticias_seccion_query)){
-      $noticias_seccion[] = $noticia;
+    if (mysql_num_rows($noticias_seccion_query) != 0) {
+      while($noticia = mysql_fetch_array($noticias_seccion_query)) {
+        $noticias_seccion[] = $noticia;
+      }
     }
     return $noticias_seccion;
   }
@@ -265,8 +327,9 @@
     return $resultado_editar;
   }
 
-  public function getSeccion($seccionID) {
-    $get_query = mysql_query('SELECT * FROM Secciones WHERE ID='.$seccionID, $this->_connection);
+  public function getSeccion($nombreSeccion) {
+    $get_string = sprintf("SELECT * FROM Secciones WHERE Nombre='%s'", $nombreSeccion);
+    $get_query = mysql_query($get_string, $this->_connection);
     return mysql_fetch_array($get_query);
   }
 

@@ -151,13 +151,13 @@
   width: 100%;
 }
 
-#comentario-form {
+form {
   margin-top: 25px;
   padding-left: 30px;
   padding-right: 30px;
 }
 
-#comentario-form .input {
+form .input {
   margin: 5px;
   padding: 5px;
 }

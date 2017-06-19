@@ -71,7 +71,7 @@
       ?>
       </div>
 
-      <form id="comentario-form" action="./controladores/add_comentario.php" method="POST">
+      <form id="comentario-form" action="" method="POST">
         <input type="hidden" name="add_comentario" value="true" />
         <input
           type="text"

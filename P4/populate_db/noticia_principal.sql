@@ -1,4 +1,4 @@
-INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, Principal, Ultimas) VALUES (
+INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, SeccionID, Publicada, Principal, Ultimas) VALUES (
 '13 millones de documentos desclasificados de la CIA fueron subidos a internet',
 'La CIA estaba perdiendo dinero, porque un heróico ciudadano estaba utilizando la tinta y el papel de la agencia para imprimir los documentos uno a uno.',
 'Una organización sin fines de lucro, un agitador y su abogado pro bono, lograron que la CIA subiera los contenidos completos de su base de dato de archivos desclasificados, lo que significa que ahora es posible acceder a 13 millones de documentos de la CIA, los que datan desde comienzos de la guerra fría.',
@@ -30,7 +30,7 @@ INSERT INTO geekleaks_db.Noticias(Titular, Subtitulo, Entradilla, Autor, Cuerpo,
   <p>
       El martes, la agencia puso los archivos en línea. Los archivos incluyen papeles de Henry Kissinger, documentos de desarrollo e investigación de la CIA, estudios científicos, reportes de inteligencia fotográfica, archivos de noticias e innumerables documentos. Todos pueden ser leídos aquí.
    </p>',
-'2017-01-20 19:23:00',
+'2017-01-20 19:23:00', 1, true,
 true,
 false
 )

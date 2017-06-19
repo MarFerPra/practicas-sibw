@@ -35,6 +35,10 @@ body {
     float: left;
 }
 
+#navbar .user-option {
+  float: right;
+}
+
 #navbar li a {
     display: block;
     color: #666;

@@ -32,7 +32,7 @@ function addComentario(ev) {
   ev.preventDefault();
 
   var formComentario = new FormData(document.getElementById('comentario-form'));
-  fetch("./controladores/add_comentario.php", {
+  fetch("./controladores/api/comentarios/add.php", {
     method: "POST",
     body: formComentario
   }).then((response) => {
@@ -47,7 +47,16 @@ function addComentario(ev) {
       alert('Error, no estas registrado en el sistema.');
     }
   });
-  limpiarFormularioComentario();
+
+  if(typeof limpiarFormulario === 'function') {
+    const formItems = [
+      'comentario-form-autor',
+      'comentario-form-email',
+      'comentario-form-texto'
+    ];
+
+    limpiarFormulario(formItems);
+  }
 }
 
 function mostrarComentarios() {
@@ -56,16 +65,6 @@ function mostrarComentarios() {
 
   const botton = document.getElementById('btn-dropdown-comentarios');
   botton.classList.add('active');
-}
-
-function limpiarFormularioComentario() {
-  const autor = document.getElementById('comentario-form-autor');
-  const email = document.getElementById('comentario-form-email');
-  const texto = document.getElementById('comentario-form-texto');
-
-  autor.value = "";
-  email.value = "";
-  texto.value = "";
 }
 
 function filtrarPalabras(ev) {
