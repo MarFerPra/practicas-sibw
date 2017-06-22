@@ -22,7 +22,7 @@ body {
 
 /* Navbar */
 
-#navbar{
+.navbar{
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -31,15 +31,15 @@ body {
     background-color: #f3f3f3;
 }
 
-#navbar li {
+.navbar li {
     float: left;
 }
 
-#navbar .user-option {
+.navbar .user-option {
   float: right;
 }
 
-#navbar li a {
+.navbar li a {
     display: block;
     color: #666;
     text-align: center;
@@ -47,13 +47,22 @@ body {
     text-decoration: none;
 }
 
-#navbar li a:hover:not(.active) {
+.navbar li a:hover:not(.active) {
     background-color: #ddd;
 }
 
-#navbar li a.active {
+.navbar li a.active {
     color: white;
     background-color: #4CAF50;
+}
+
+#admin-menu {
+  display: none;
+}
+
+.navbar .user-info {
+  display: none;
+  float: right;
 }
 
 

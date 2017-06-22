@@ -6,10 +6,11 @@
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
-  $resultado = $dbHandler->checkAcessToken($usuarioID, $accessToken);
 
+  $resultado = $dbHandler->checkLogin($usuarioID, $accessToken);
   if($resultado) {
     http_response_code(200);
+    echo json_encode($resultado);
   } else {
     http_response_code(401);
   }

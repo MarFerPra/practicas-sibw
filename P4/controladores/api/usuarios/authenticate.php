@@ -1,19 +1,17 @@
 <?php
   include '../../../helpers/db_handler.php';
-  $usuarioID = htmlspecialchars($_POST['usuarioID']);
-  $nombre = htmlspecialchars($_POST['nombre']);
   $email = htmlspecialchars($_POST['email']);
-  $rol = htmlspecialchars($_POST['rol']);
   $password = htmlspecialchars($_POST['password']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
-  $accessToken = $dbHandler->authenticateUser($email, $password);
 
-  if($accessToken) {
+  $response = $dbHandler->authenticateUser($email, $password);
+
+  if($response['accessToken']) {
     http_response_code(200);
-    echo json_encode($accessToken);
+    echo json_encode($response);
   } else {
     http_response_code(401);
   }

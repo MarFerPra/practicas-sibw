@@ -8,7 +8,7 @@
   $noticiaID = $_GET["noticia"];
   $noticia = $dbHandler->getNoticia($noticiaID);
 
-  $comentarios = $dbHandler->getComentarios($noticiaID);
+  $comentarios = $dbHandler->getComentariosNoticia($noticiaID);
 
   $count_comentarios = sizeof($comentarios);
 
@@ -105,21 +105,21 @@
 </div>
 
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
-  const palabrasProhibidas = [
-    <?php
-      for ($i = 0 ; $i < $count_palabras_prohibidas; $i++){
-        echo '\''.$palabras_prohibidas[$i][0].'\',';
-      }
-    ?>
-  ];
+const palabrasProhibidas = [
+  <?php
+    for ($i = 0 ; $i < $count_palabras_prohibidas; $i++){
+      echo '\''.$palabras_prohibidas[$i][0].'\',';
+    }
+  ?>
+];
 
-    /* Se ejecuta despues de cargar el HTML */
-    (function() {
-      const textareaComentario = document.getElementById('comentario-form-texto');
-      textareaComentario.onkeyup = filtrarPalabras;
-      const btnComentar = document.getElementById('btn-comentar');
-      btnComentar.onclick = addComentario;
-    })();
-  </script>
+  /* Se ejecuta despues de cargar el HTML */
+  (function() {
+    const textareaComentario = document.getElementById('comentario-form-texto');
+    textareaComentario.onkeyup = filtrarPalabras;
+    const btnComentar = document.getElementById('btn-comentar');
+    btnComentar.onclick = addComentario;
+  })();
+</script>

@@ -37,6 +37,26 @@
   //                                USUARIOS
   // ---------------------------------------------------------------------------
 
+  public function getUsuarioByEmail($email) {
+    $get_usuario_query = sprintf(
+      "SELECT * FROM Usuarios WHERE Email='%s'", $email
+    );
+    $query = mysql_query($get_usuario_query, $this->_connection);
+    return mysql_fetch_array($query);
+  }
+
+  public function getUsuarios() {
+    $usuarios_query = mysql_query('SELECT * FROM Usuarios', $this->_connection);
+    $usuarios = array();
+
+    if (mysql_num_rows($usuarios_query) != 0) {
+      while($usuario = mysql_fetch_array($usuarios_query)) {
+        $usuarios[] = $usuario;
+      }
+    }
+    return $usuarios;
+  }
+
   public function getUsuario($usuarioID) {
     $query = mysql_query('SELECT * FROM Usuarios WHERE ID='.$usuarioID, $this->_connection);
     return mysql_fetch_array($query);
@@ -103,7 +123,10 @@
       );
       $resultado_query = mysql_query($add_token_query, $this->_connection);
 
-      return $accessToken;
+      $usuario = $this->getUsuarioByEmail($email);
+      $respuesta['usuarioID'] = $usuario[0];
+      $respuesta['accessToken'] = $accessToken;
+      return $respuesta;
     }
 
     return false;
@@ -120,9 +143,20 @@
     return $resultado_query;
   }
 
-  public function checkAcessToken($usuarioID, $accessToken) {
-    $usuario = $this->getUsuario($usuarioID);
-    return ($usuario[5] == $accessToken);
+  public function checkLogin($usuarioID, $accessToken) {
+
+    if($usuarioID && $accessToken) {
+      $usuario = $this->getUsuario($usuarioID);
+      if($usuario[5] == $accessToken) {
+        $resultado['id'] = $usuario[0];
+        $resultado['nombre'] = $usuario[1];
+        $resultado['email'] = $usuario[3];
+        $resultado['rol'] = $usuario[4];
+        $resultado['tokenAcceso'] = $usuario[5];
+        return $resultado;
+      }
+    }
+    return false;
   }
 
   public function generateAccessToken($email, $hashed_password) {
@@ -191,6 +225,18 @@
     return $noticias_seccion;
   }
 
+  public function getNoticias() {
+    $noticias_query = mysql_query('SELECT * FROM Noticias', $this->_connection);
+    $noticias = array();
+
+    if (mysql_num_rows($noticias_query) != 0) {
+      while($noticia = mysql_fetch_array($noticias_query)) {
+        $noticias[] = $noticia;
+      }
+    }
+    return $noticias;
+  }
+
   public function setEstadoNoticia($noticiaID, $publicada) {
     $edit_noticia_query = sprintf(
       "UPDATE Noticias
@@ -219,7 +265,7 @@
   // ---------------------------------------------------------------------------
   //                               COMENTARIOS
   // ---------------------------------------------------------------------------
-  public function getComentarios($noticiaID) {
+  public function getComentariosNoticia($noticiaID) {
     $comentarios_query = mysql_query('SELECT * FROM Comentarios WHERE NoticiaID='.$noticiaID, $this->_connection);
 
     $comentarios = array();
@@ -228,6 +274,15 @@
       $comentarios[] = $comentario;
     }
 
+    return $comentarios;
+  }
+
+  public function getComentarios() {
+    $comentarios_query = mysql_query('SELECT * FROM Comentarios', $this->_connection);
+    $comentarios = array();
+    while($comentario = mysql_fetch_array($comentarios_query)){
+      $comentarios[] = $comentario;
+    }
     return $comentarios;
   }
 
@@ -274,6 +329,15 @@
     return $resultado_insertar;
   }
 
+  public function getAllPublicidad() {
+    $query = mysql_query('SELECT * FROM Publicidad', $this->_connection);
+    $resultado = array();
+    while($item = mysql_fetch_array($query)){
+      $resultado[] = $item;
+    }
+    return $resultado;
+  }
+
   public function deletePublicidad($publicidadID) {
     $delete_publicidad_query = sprintf("DELETE FROM Publicidad WHERE ID='%s'", $publicidadID);
     $resultado_delete = mysql_query($delete_publicidad_query, $this->_connection);
@@ -308,6 +372,15 @@
     );
     $resultado_insertar = mysql_query($add_seccion_query, $this->_connection);
     return $resultado_insertar;
+  }
+
+  public function getSecciones() {
+    $query = mysql_query('SELECT * FROM Secciones', $this->_connection);
+    $resultado = array();
+    while($item = mysql_fetch_array($query)){
+      $resultado[] = $item;
+    }
+    return $resultado;
   }
 
   public function deleteSeccion($seccionID) {

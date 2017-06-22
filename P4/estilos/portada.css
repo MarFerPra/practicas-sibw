@@ -20,23 +20,23 @@
   background-color: rgba(210, 210, 210, .8);
 }
 
-#ultimas-noticias {
+#lista-noticias {
   float: left;
   width: 70%;
   margin: 0 15px 0 15px;
 }
 
-#ultimas-noticias #col-izq {
+#lista-noticias #col-izq {
   width: 47%;
   float: left;
 }
 
-#ultimas-noticias #col-der {
+#lista-noticias #col-der {
   width: 47%;
   float: right;
 }
 
-#ultimas-noticias .noticia {
+#lista-noticias .noticia {
   background-color: rgba(210, 210, 210, 1);
   width: 100%;
   margin: 15px;
@@ -46,7 +46,7 @@
   text-align: center;
 }
 
-#ultimas-noticias .noticia a {
+#lista-noticias .noticia a {
   text-decoration: none;
   color: inherit;
 }
@@ -68,4 +68,3 @@
   min-height: 90px;
   padding: 50px 10px 0 10px;
 }
-

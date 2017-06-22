@@ -5,6 +5,7 @@
     <link rel = "stylesheet" type = "text/css" href = "./estilos/comun.css" />
     <script src="./javascript/noticia.js"></script>
     <script src="./javascript/limpiarFormulario.js"></script>
+    <script src="./javascript/cookieHelpers.js"></script>
   </head>
   <body>
 

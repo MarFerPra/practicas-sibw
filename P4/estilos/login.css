@@ -1,3 +1,7 @@
 .contenedor-login {
   text-align: center;
 }
+
+.contenedor-login form {
+  width: 15%;
+}

@@ -17,7 +17,7 @@
 
   <div class="contenedor-general">
 
-    <div id="ultimas-noticias">
+    <div id="lista-noticias">
 
     <h2> Ultimas noticias </h2>
 
