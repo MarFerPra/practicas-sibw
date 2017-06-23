@@ -1,18 +1,26 @@
 <?php
   include '../../../helpers/db_handler.php';
-  $comentarioID = htmlspecialchars($_POST['comentarioID']);
-  $noticiaID = htmlspecialchars($_POST['noticiaID']);
-  $dirIP = htmlspecialchars($_POST['dirIP']);
-  $autor = htmlspecialchars($_POST['autor']);
-  $email = htmlspecialchars($_POST['email']);
-  $fecha = htmlspecialchars($_POST['fecha']);
-  $texto = htmlspecialchars($_POST['texto']);
+
+  $comentarioID = htmlspecialchars($_POST['ComentarioID']);
+  $email = htmlspecialchars($_POST['Email']);
+  $autor = htmlspecialchars($_POST['Autor']);
+  $texto = htmlspecialchars($_POST['Texto']);
+  $noticia = htmlspecialchars($_POST['NoticiaID']);
+  $dirIP = htmlspecialchars($_POST['DirIP']);
+  $fecha = date("Y-m-d H:i:s");
+  $usuarioID = htmlspecialchars($_POST['usuarioID']);
+  $accessToken = htmlspecialchars($_POST['tokenAcceso']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
 
-  $resultado = $dbHandler->editComentario($comentarioID, $noticiaID, $dirIP, $autor, $email, $fecha, $texto);
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+  $resultado = false;
+
+  if($checkLogin) {
+    $resultado = $dbHandler->editComentario($comentarioID, $noticia, $dirIP, $autor, $email, $fecha, $texto);
+  }
 
   if($resultado) {
     http_response_code(200);

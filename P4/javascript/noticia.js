@@ -32,7 +32,7 @@ function addComentario(ev) {
   ev.preventDefault();
 
   var formComentario = new FormData(document.getElementById('comentario-form'));
-  fetch("./controladores/api/comentarios/add.php", {
+  fetch("./controladores/api/comentarios/comentar.php", {
     method: "POST",
     body: formComentario
   }).then((response) => {

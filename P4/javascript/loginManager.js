@@ -12,6 +12,9 @@ async function fetchUser(formData) {
     }
   }).then((data) => {
     usuario = data;
+    const loginFinishedEvent = document.createEvent('Event');
+    loginFinishedEvent.initEvent('loginFinished', true, true);
+    document.dispatchEvent(loginFinishedEvent);
   });
 }
 
@@ -47,14 +50,6 @@ function checkLogin() {
       }
     })
   }
-}
-
-// Taken from:
-// https://stackoverflow.com/questions/22783108/convert-js-object-to-form-data
-function getFormData(object) {
-    const formData = new FormData();
-    Object.keys(object).forEach(key => formData.append(key, object[key]));
-    return formData;
 }
 
 function logout() {

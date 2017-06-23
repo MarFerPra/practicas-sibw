@@ -6,6 +6,7 @@
     <link rel = "stylesheet" type = "text/css" href = "./estilos/noticia.css" />
     <link rel = "stylesheet" type = "text/css" href = "./estilos/registro.css" />
     <script src="./javascript/limpiarFormulario.js"></script>
+    <script src="./javascript/getFormData.js"></script>
   </head>
   <body>
 
@@ -54,7 +55,7 @@
       ev.preventDefault();
 
       var formRegistro = new FormData(document.getElementById('registro-form'));
-      fetch("./controladores/api/usuarios/add.php", {
+      fetch("./controladores/api/usuarios/registrar.php", {
         method: "POST",
         body: formRegistro
       }).then((response) => {

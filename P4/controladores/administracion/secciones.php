@@ -1,7 +1,14 @@
 <h3>Publicidad</h3>
 
+<a href="./administracion?item=secciones&action=add">
+  <button id="btn-add-secciones" class="btn-add">
+    <i class="fa fa-plus"></i> Crear nueva seccion
+  </button>
+</a>
+
 <table id='tabla-admin-secciones'>
   <tr>
+    <th>Acciones</th>
     <th>ID</th>
     <th>Nombre</th>
   </tr>
@@ -36,6 +43,10 @@
   function getSeccionTablaItemHTML(seccion) {
     return (
       `<tr>
+        <td>
+          ${editButton('secciones', seccion.ID)}
+          ${deleteButton('secciones', seccion.ID)}
+        </td>
         <td>${seccion.ID}</td>
         <td>${seccion.Nombre}</td>
       </tr>`

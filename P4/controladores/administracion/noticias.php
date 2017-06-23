@@ -1,8 +1,10 @@
 <h3>Noticias</h3>
 
-<button id="btn-add-noticia" class="btn-add">
-  <i class="fa fa-plus"></i> Crear nueva noticia
-</button>
+<a href="./administracion?item=noticias&action=add">
+  <button id="btn-add-noticia" class="btn-add">
+    <i class="fa fa-plus"></i> Crear nueva noticia
+  </button>
+</a>
 
 <table id='tabla-admin-noticias'>
   <tr>

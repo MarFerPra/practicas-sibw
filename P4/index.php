@@ -6,6 +6,7 @@
     <script src="./javascript/noticia.js"></script>
     <script src="./javascript/limpiarFormulario.js"></script>
     <script src="./javascript/cookieHelpers.js"></script>
+    <script src="./javascript/getFormData.js"></script>
   </head>
   <body>
 
@@ -27,6 +28,10 @@
 
     if($_GET["seccion"]) {
       include './controladores/seccion.php';
+    }
+
+    if($_GET["busqueda"]) {
+      include './controladores/busqueda.php';
     }
   }
   ;?>

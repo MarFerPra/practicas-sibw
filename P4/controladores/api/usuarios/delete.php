@@ -1,13 +1,17 @@
 <?php
   include '../../../helpers/db_handler.php';
+
+  $itemID = htmlspecialchars($_POST['itemID']);
   $usuarioID = htmlspecialchars($_POST['usuarioID']);
+  $accessToken = htmlspecialchars($_POST['tokenAcceso']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
-  $resultado = $dbHandler->deleteUsuario($usuarioID);
 
-  if($resultado) {
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+
+  if($checkLogin && $dbHandler->deleteUsuario($itemID)) {
     http_response_code(200);
   } else {
     http_response_code(500);

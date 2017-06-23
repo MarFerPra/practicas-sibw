@@ -1,18 +1,24 @@
 <?php
   include '../../../helpers/db_handler.php';
 
+  $comentarioID = htmlspecialchars($_POST['comentarioID']);
   $usuarioID = htmlspecialchars($_POST['usuarioID']);
   $accessToken = htmlspecialchars($_POST['tokenAcceso']);
-  $adminID = htmlspecialchars($_POST['adminID']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
-  $usuario = $dbHandler->getUsuario($usuarioID);
 
-  if($usuario) {
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+  $comentario = false;
+
+  if($checkLogin){
+    $comentario = $dbHandler->getComentario($comentarioID);
+  }
+
+  if($checkLogin && $comentario) {
     http_response_code(200);
-    echo json_encode($usuario);
+    echo json_encode($comentario);
   } else {
     http_response_code(500);
   }

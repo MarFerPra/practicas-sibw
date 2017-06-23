@@ -6,6 +6,7 @@
     <link rel = "stylesheet" type = "text/css" href = "./estilos/noticia.css" />
     <link rel = "stylesheet" type = "text/css" href = "./estilos/login.css" />
     <script src="./javascript/cookieHelpers.js"></script>
+    <script src="./javascript/getFormData.js"></script>
   </head>
   <body>
 

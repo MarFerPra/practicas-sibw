@@ -174,11 +174,8 @@
 
   public function addNoticia($titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion, $publicada, $principal, $ultimas) {
     $add_noticia_query = sprintf(
-      "INSERT INTO Noticias
-      (Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, Seccion, Publicada, Principal, Ultimas)
-      VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-      $titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion,
-      $publicada, $principal, $ultimas
+      "INSERT INTO Noticias (Titular, Subtitulo, Entradilla, Autor, Cuerpo, Fecha, SeccionID, Publicada, Principal, Ultimas) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+      $titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion, $publicada, $principal, $ultimas
     );
     $resultado_insertar = mysql_query($add_noticia_query, $this->_connection);
     return $resultado_insertar;
@@ -186,18 +183,7 @@
 
   public function editNoticia($noticiaID, $titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion, $publicada, $principal, $ultimas) {
     $edit_noticia_query = sprintf(
-      "UPDATE Noticias
-       SET Titular='%s',
-           Subtitulo='%s',
-           Entradilla='%s',
-           Autor='%s',
-           Cuerpo='%s',
-           Fecha='%s',
-           Seccion='%s',
-           Publicada='%s',
-           Principal='%s',
-           Ultimas='%s',
-       WHERE ID='%s'",
+      "UPDATE Noticias SET Titular='%s', Subtitulo='%s', Entradilla='%s', Autor='%s', Cuerpo='%s', Fecha='%s', SeccionID='%s', Publicada='%s', Principal='%s', Ultimas='%s' WHERE ID='%s'",
        $titular, $subtitulo, $entradilla,
        $autor, $cuerpo, $fecha, $seccion, $publicada,
        $principal, $ultimas, $noticiaID
@@ -213,7 +199,7 @@
   }
 
   public function getNoticiasSeccion($nombreSeccion) {
-    $seccion = $this->getSeccion($nombreSeccion);
+    $seccion = $this->getSeccionByNombre($nombreSeccion);
     $noticias_seccion_query = mysql_query('SELECT * FROM Noticias WHERE SeccionID='.$seccion[0], $this->_connection);
     $noticias_seccion = array();
 
@@ -262,6 +248,18 @@
     }
     return $ultimas_noticias;
   }
+
+  public function searchNoticias($input) {
+    $query_string = "SELECT * FROM Noticias WHERE Titular like '%".$input."%';";
+    error_log(print_r($query_string, TRUE));
+    $query = mysql_query($query_string, $this->_connection);
+    $noticias = array();
+
+    while($noticia = mysql_fetch_array($query)){
+      $noticias[] = $noticia;
+    }
+    return $noticias;
+  }
   // ---------------------------------------------------------------------------
   //                               COMENTARIOS
   // ---------------------------------------------------------------------------
@@ -286,10 +284,14 @@
     return $comentarios;
   }
 
+  public function getComentario($comentarioID) {
+    $query = mysql_query('SELECT * FROM Comentarios WHERE ID='.$comentarioID, $this->_connection);
+    return mysql_fetch_array($query);
+  }
+
   public function addComentario($noticiaID, $dirIP, $autor, $email, $fecha, $texto) {
     $add_comentario_query = sprintf(
-      "INSERT INTO Comentarios (NoticiaID, DirIP, Autor, Email, FechaHora, Texto)
-      VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+      "INSERT INTO Comentarios (NoticiaID, DirIP, Autor, Email, FechaHora, Texto) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
       $noticiaID, $dirIP, $autor, $email, $fecha, $texto
     );
     $resultado_insertar = mysql_query($add_comentario_query, $this->_connection);
@@ -400,8 +402,14 @@
     return $resultado_editar;
   }
 
-  public function getSeccion($nombreSeccion) {
+  public function getSeccionByNombre($nombreSeccion) {
     $get_string = sprintf("SELECT * FROM Secciones WHERE Nombre='%s'", $nombreSeccion);
+    $get_query = mysql_query($get_string, $this->_connection);
+    return mysql_fetch_array($get_query);
+  }
+
+  public function getSeccion($seccionID) {
+    $get_string = sprintf("SELECT * FROM Secciones WHERE ID='%s'", $seccionID);
     $get_query = mysql_query($get_string, $this->_connection);
     return mysql_fetch_array($get_query);
   }

@@ -1,7 +1,14 @@
 <h3>Usuarios</h3>
 
+<a href="./administracion?item=usuarios&action=add">
+  <button id="btn-add-usuario" class="btn-add">
+    <i class="fa fa-plus"></i> Crear nuevo usuario
+  </button>
+</a>
+
 <table id='tabla-admin-usuarios'>
   <tr>
+    <th>Acciones</th>
     <th>ID</th>
     <th>Nombre</th>
     <th>Email</th>
@@ -38,6 +45,10 @@
   function getUsuarioTablaItemHTML(usuario) {
     return (
       `<tr>
+        <td>
+          ${editButton('usuarios', usuario.ID)}
+          ${deleteButton('usuarios', usuario.ID)}
+        </td>
         <td>${usuario.ID}</td>
         <td>${usuario.Nombre}</td>
         <td>${usuario.Email}</td>

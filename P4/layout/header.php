@@ -11,6 +11,7 @@
   <li><a href="./?seccion=Ciencia">Ciencia</a></li>
   <li><a href="./?seccion=Politica">Politica</a></li>
   <li><a href="./?seccion=Economia">Economia</a></li>
+  <li><a href="./?busqueda=true">Busqueda</a></li>
   <li class="user-option"><a href="./registro">Registro</a></li>
   <li class="user-option"><a href="./login">Login</a></li>
   <li class="user-option" id="logout-option"><a href="#">Logout</a></li>

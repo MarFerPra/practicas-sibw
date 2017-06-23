@@ -3,12 +3,19 @@
 
   $texto = htmlspecialchars($_POST['texto']);
   $imagen = htmlspecialchars($_POST['imagen']);
+  $usuarioID = htmlspecialchars($_POST['usuarioID']);
+  $accessToken = htmlspecialchars($_POST['tokenAcceso']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
 
-  $resultado = $dbHandler->addPublicidad($texto, $imagen);
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+  $resultado = false;
+
+  if($checkLogin) {
+    $resultado = $dbHandler->addPublicidad($texto, $imagen);
+  }
 
   if($resultado) {
     http_response_code(200);

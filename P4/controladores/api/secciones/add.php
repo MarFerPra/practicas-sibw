@@ -2,12 +2,19 @@
   include '../../../helpers/db_handler.php';
 
   $nombre = htmlspecialchars($_POST['nombre']);
+  $usuarioID = htmlspecialchars($_POST['usuarioID']);
+  $accessToken = htmlspecialchars($_POST['tokenAcceso']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
 
-  $resultado = $dbHandler->addSeccion($nombre);
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+  $resultado = false;
+
+  if($checkLogin) {
+    $resultado = $dbHandler->addSeccion($nombre);
+  }
 
   if($resultado) {
     http_response_code(200);

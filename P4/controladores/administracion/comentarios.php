@@ -1,7 +1,14 @@
 <h3>Comentarios</h3>
 
+<a href="./administracion?item=comentarios&action=add">
+  <button id="btn-add-comentarios" class="btn-add">
+    <i class="fa fa-plus"></i> Crear nuevo comentario
+  </button>
+</a>
+
 <table id='tabla-admin-comentarios'>
   <tr>
+    <th>Acciones</th>
     <th>ID</th>
     <th>NoticiaID</th>
     <th>DirIp</th>
@@ -41,6 +48,10 @@
   function getComentarioTablaItemHTML(comentario) {
     return (
       `<tr>
+        <td>
+          ${editButton('comentarios', comentario.ID)}
+          ${deleteButton('comentarios', comentario.ID)}
+        </td>
         <td>${comentario.ID}</td>
         <td>${comentario.NoticiaID}</td>
         <td>${comentario.DirIp}</td>

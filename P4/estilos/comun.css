@@ -73,6 +73,16 @@ body {
     text-decoration: none;
 }
 
+.search-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.search-wrapper input {
+  height: 20px;
+  padding: 5px;
+}
+
 /* General */
 
 .contenedor-general {

@@ -1,7 +1,14 @@
 <h3>Publicidad</h3>
 
+<a href="./administracion?item=publicidad&action=add">
+  <button id="btn-add-publicidad" class="btn-add">
+    <i class="fa fa-plus"></i> Crear nueva publicidad
+  </button>
+</a>
+
 <table id='tabla-admin-publicidad'>
   <tr>
+    <th>Acciones</th>
     <th>ID</th>
     <th>Texto</th>
     <th>Imagen</th>
@@ -37,6 +44,10 @@
   function getPublicidadTablaItemHTML(publicidad) {
     return (
       `<tr>
+        <td>
+          ${editButton('publicidad', publicidad.ID)}
+          ${deleteButton('publicidad', publicidad.ID)}
+        </td>
         <td>${publicidad.ID}</td>
         <td>${publicidad.Texto}</td>
         <td>${publicidad.Imagen}</td>

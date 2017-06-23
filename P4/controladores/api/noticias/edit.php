@@ -1,22 +1,30 @@
 <?php
   include '../../../helpers/db_handler.php';
 
-  $noticiaID = htmlspecialchars($_POST['$noticiaID']);
-  $titular = htmlspecialchars($_POST['titular']);
-  $subtitulo = htmlspecialchars($_POST['subtitulo']);
-  $entradilla = htmlspecialchars($_POST['entradilla']);
-  $autor = htmlspecialchars($_POST['autor']);
-  $cuerpo = htmlspecialchars($_POST['cuerpo']);
-  $fecha = htmlspecialchars($_POST['fecha']);
-  $seccion = htmlspecialchars($_POST['seccion']);
-  $publicada = htmlspecialchars($_POST['publicada']);
-  $principal = htmlspecialchars($_POST['principal']);
-  $ultimas = htmlspecialchars($_POST['ultimas']);
+  $noticiaID = htmlspecialchars($_POST['noticiaID']);
+  $titular = htmlspecialchars($_POST['Titular']);
+  $subtitulo = htmlspecialchars($_POST['Subtitulo']);
+  $entradilla = htmlspecialchars($_POST['Entradilla']);
+  $autor = htmlspecialchars($_POST['Autor']);
+  $cuerpo = htmlspecialchars($_POST['Cuerpo']);
+  $fecha = date("Y-m-d H:i:s");
+  $seccion = htmlspecialchars($_POST['SeccionID']);
+  $publicada = htmlspecialchars($_POST['Publicada']);
+  $principal = htmlspecialchars($_POST['Principal']);
+  $ultimas = htmlspecialchars($_POST['Ultimas']);
+  $usuarioID = htmlspecialchars($_POST['usuarioID']);
+  $accessToken = htmlspecialchars($_POST['tokenAcceso']);
 
   if(!isset($dbHandler)){
     $dbHandler = DatabaseHandler::getInstance();
   }
-  $resultado = $dbHandler->editNoticia($noticiaID, $titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion, $publicada, $principal, $ultimas);
+
+  $checkLogin = $dbHandler->checkLogin($usuarioID, $accessToken);
+  $resultado = false;
+
+  if($checkLogin) {
+    $resultado = $dbHandler->editNoticia($noticiaID, $titular, $subtitulo, $entradilla, $autor, $cuerpo, $fecha, $seccion, $publicada, $principal, $ultimas);
+  }
 
   if($resultado) {
     http_response_code(200);
