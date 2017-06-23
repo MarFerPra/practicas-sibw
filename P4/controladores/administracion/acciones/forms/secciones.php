@@ -78,7 +78,6 @@
         return false;
       }
     }).then((seccion) => {
-      console.log(seccion);
       document.getElementById('form-seccion-nombre').value = seccion.Nombre;
     });
   }

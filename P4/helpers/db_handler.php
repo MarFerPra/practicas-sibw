@@ -251,7 +251,6 @@
 
   public function searchNoticias($input) {
     $query_string = "SELECT * FROM Noticias WHERE Titular like '%".$input."%';";
-    error_log(print_r($query_string, TRUE));
     $query = mysql_query($query_string, $this->_connection);
     $noticias = array();
 
@@ -259,6 +258,12 @@
       $noticias[] = $noticia;
     }
     return $noticias;
+  }
+
+  public function updateCountNoticia($noticiaID, $count) {
+    $query = sprintf( "UPDATE Noticias SET Num_visitas='%s' WHERE ID='%s'", $count, $noticiaID);
+    $resultado_editar = mysql_query($query, $this->_connection);
+    return $resultado_editar;
   }
   // ---------------------------------------------------------------------------
   //                               COMENTARIOS

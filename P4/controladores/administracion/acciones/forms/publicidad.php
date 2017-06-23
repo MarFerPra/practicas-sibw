@@ -87,7 +87,6 @@
         return false;
       }
     }).then((publicidad) => {
-      console.log(publicidad);
       document.getElementById('form-publicidad-texto').value = publicidad.Texto;
       document.getElementById('form-publicidad-imagen').value = publicidad.Imagen;
     });

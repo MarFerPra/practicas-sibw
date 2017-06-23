@@ -6,6 +6,10 @@
   $dbHandler = DatabaseHandler::getInstance();
 
   $noticiaID = $_GET["noticia"];
+  $updateCount = $_GET["updateCount"];
+  if($updateCount) {
+    $dbHandler->updateCountNoticia($noticiaID, $updateCount);
+  }
   $noticia = $dbHandler->getNoticia($noticiaID);
 
   $comentarios = $dbHandler->getComentariosNoticia($noticiaID);

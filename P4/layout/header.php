@@ -24,6 +24,7 @@
   <li><a href="./administracion?item=usuarios">Usuarios</a></li>
   <li><a href="./administracion?item=secciones">Secciones</a></li>
   <li><a href="./administracion?item=publicidad">Publicidad</a></li>
+  <li><a href="./administracion?item=noticias_tres_col">Noticias en tres columnas</a></li>
 </ul>
 
 

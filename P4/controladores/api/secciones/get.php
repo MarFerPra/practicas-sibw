@@ -8,8 +8,6 @@
   }
   $seccion = $dbHandler->getSeccion($seccionID);
 
-  error_log(print_r($_POST, TRUE));
-
   if($seccion) {
     http_response_code(200);
     echo json_encode($seccion);

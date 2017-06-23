@@ -32,3 +32,10 @@ table a {
   padding: 3px;
   margin: 3px;
 }
+
+
+/* EXAMEN */
+
+#noticias-col-izq{ float: left; width: 33%; }
+#noticias-col-der{ float: right; width: 33%; }
+#noticias-col-centro{ display: inline-block; width: 33%; }
